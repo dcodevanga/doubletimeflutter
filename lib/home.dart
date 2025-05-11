@@ -226,9 +226,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
-            SizedBox(
-              height: 24,
-            ),
+            // SizedBox(
+            //   height: 18,
+            // ),
             GestureDetector(
               onTap: () {
                 durationFromWheel = seconds + (minutes * 60) + (hours * 60 * 60);
@@ -237,7 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: Container(
                 height: 86,
-                margin: EdgeInsets.all(48),
+                margin: EdgeInsets.symmetric(horizontal: 48),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: Colors.deepOrangeAccent,
