@@ -1,13 +1,21 @@
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 
 class TimerApp extends StatefulWidget {
-  const TimerApp({super.key});
+
+  final int durationInSeconds;
+
+  const TimerApp({super.key, required this.durationInSeconds});
 
   @override
   State<TimerApp> createState() => _TimerAppState();
 }
 
 class _TimerAppState extends State<TimerApp> {
+
+  final CountDownController _controller = CountDownController();
+  bool isPaused = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,13 +39,15 @@ class _TimerAppState extends State<TimerApp> {
                     color: Colors.white,
                   ),
                 ),
-                Text(
-                  "00:05:00",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 48,
-                    fontWeight: FontWeight.bold
-                  ),
+                CircularCountDownTimer(
+                  width: 120,
+                  height: 120,
+                  duration: widget.durationInSeconds,
+                  isReverse: true,
+                  fillColor: Colors.white,
+                  ringColor: Colors.black,
+                  controller: _controller,
+                  isReverseAnimation: true,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -68,7 +78,23 @@ class _TimerAppState extends State<TimerApp> {
                 Expanded(
                   child: GestureDetector(
                     onTap: (){
-                      
+                      if(!isPaused) {
+                        _controller.pause();
+                        setState(() {
+
+                          isPaused = true;
+
+                        });
+
+                      }
+                      else if(isPaused){
+                        _controller.resume();
+                        setState(() {
+                          
+                          isPaused = false;
+
+                        });
+                      }
                     },
                     child: Container(
                       height: 120,
@@ -78,7 +104,7 @@ class _TimerAppState extends State<TimerApp> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Icon(
-                        Icons.pause,
+                        isPaused ? Icons.play_arrow : Icons.pause,
                         color: Colors.white,
                         size: 48,
                       ),
