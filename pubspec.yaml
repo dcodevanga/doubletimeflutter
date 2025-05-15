@@ -36,6 +36,10 @@ dependencies:
   cupertino_icons: ^1.0.8
   wheel_picker: ^0.2.1
   circular_countdown_timer: ^0.2.4
+  animated_bottom_navigation_bar: ^1.4.0
+  stylish_bottom_bar: ^1.1.1
+  intl: ^0.20.2
+  duration: ^4.0.3
 
 dev_dependencies:
   flutter_test:
