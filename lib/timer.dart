@@ -1,7 +1,7 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:duration/duration.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:doubletimeflutter/time_service.dart';
 
 class TimerApp extends StatefulWidget {
   final int durationInSeconds;
@@ -178,8 +178,8 @@ class _TimerAppState extends State<TimerApp> {
           ),
           SizedBox(height: 24),
           GestureDetector(
-            onTap: () {
-              var saveTime;
+            onTap: () async {
+              int saveTime;
               if(!isNegative){
                 saveTime = parseToSeconds(_controller.getTime().toString());
               }
@@ -187,7 +187,12 @@ class _TimerAppState extends State<TimerApp> {
                 var negative = parseToSeconds(negativeController.getTime().toString());
                 saveTime = -negative;
               }
+              final time = await TimeService.getSavedTimeInt();
+              int prefTime = (time is int) ? time : 0;
+              prefTime = prefTime + saveTime;
+              TimeService.saveTimeInt(prefTime);
               Navigator.pop(context, saveTime);
+
             },
             child: Container(
               height: 120,
